@@ -40,8 +40,20 @@ def main():
                 finaldata.append((key, ipdict[key], reader.get(key)["country"]["names"]["en"]))
 
             # final print
+            finaldata = sorted(finaldata, key=lambda x:x[1], reverse=True)
+            csvstring = "IP,Logins,Country\n"
             for data in finaldata:
+                csvstring+=str(data[0])+","+str(data[1])+","+str(data[2]+"\n")
                 print(str(data[0]) + " tried to log in " + str(data[1]) + " times from " + str(data[2]))
+
+            #export
+            import os
+            if os.path.exists("log.csv"):
+                os.remove("log.csv")
+            for line in csvstring.split("\n"):
+                if len(line)>1:
+                    os.popen("echo " + line + " >> log.csv")
+
     except FileNotFoundError:
         print("File not found")
         exit(1)
