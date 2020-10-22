@@ -52,7 +52,7 @@ def main():
                 os.remove("log.csv")
             for line in csvstring.split("\n"):
                 if len(line)>1:
-                    os.popen("echo " + line + " >> log.csv")
+                    os.system("echo " + line + " >> log.csv")
 
     except FileNotFoundError:
         print("File not found")
